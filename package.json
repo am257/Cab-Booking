@@ -1,0 +1,16 @@
+{
+  "name": "cab",
+  "version": "1.0.0",
+  "description": "This project is for cab booking with user, Driver and Admin Interface",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ayush Mitra",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "bluebird": "^3.5.3",
+    "joi": "^14.3.1"
+  }
+}

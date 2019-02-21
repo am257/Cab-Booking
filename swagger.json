@@ -1,0 +1,386 @@
+{
+    "swagger": "2.0",
+    "info":{
+        "description":"This is server Assignment ...","version":"1.0.0",
+        "title":"Assignment",
+        "host":"localhost:8080",
+        "basePath":"/",
+        "schemes":[
+            "http"
+            ]
+        },
+        "paths":{
+            "/user/signup":{
+                "post":{
+                    "tags":["users"],
+                    "summary":"sign up user.",
+                    "description":"",
+                    "operationId":"getUsers",
+                    "consumes":["application/json"],
+                    "produces":["application/json"],
+                    "parameters":[
+                                {
+                                "in":"formData",
+                                "name":"name",
+                                "description":"ENTER NAME :",
+                                "required": true
+                               },
+                               {
+                                "in":"formData",
+                                "name":"email",
+                                "description":"ENTER EMAIL :",
+                                "required": true
+                               },
+                               {
+                                "in":"formData",
+                                "name":"phone",
+                                "description":"ENTER PHONE NUMBER :",
+                                "required": true
+                               },
+                               {
+                                "in":"formData",
+                                "name":"password",
+                                "description":"ENTER PASSWORD :",
+                                "required": true
+                               },
+                               {
+                                "in":"formData",
+                                "name":"confirmPassword",
+                                "description":"Re-Enter Password :",
+                                "required": true
+                               }
+        
+                    ],
+                    "responses":{
+                        "200":{"description":"success"}
+                        },
+                    "security":{}
+                    }
+                },
+                "/user/login":{
+                    "post":{
+                        "tags":["users"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"loginUsers",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/user/create-booking":{
+                    "post":{
+                        "tags":["users"],
+                        "summary":"Create Booking",
+                        "description":"",
+                        "operationId":"createBooking",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"token",
+                                    "description":"Enter Your Token : ",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"source",
+                                    "description":"Enter Pick-Up Point : ",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"destination",
+                                    "description":"Enter Destination : ",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                        },
+                         "/user/view-bookings":{
+                         "post":{
+                         "tags":["users"],
+                         "summary":"Create Booking",
+                         "description":"",
+                         "operationId":"viewBooking",
+                         "consumes":"application/json",
+                         "produces":"application/json",
+                          "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"token",
+                                    "description":"Enter Your Token : ",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/user/booking-complete":{
+                    "post":{
+                        "tags":["users"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"bComplete",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                            {
+                                "in":"formData",
+                                "name":"token",
+                                "description":"Enter Your Token : ",
+                                "required":true
+                            },
+                                {
+                                    "in":"formData",
+                                    "name":"driverRating",
+                                    "description":"Enter Driver Ratings: ",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/admin/login":{
+                    "post":{
+                        "tags":["admin"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"adminLogin",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/admin/view-drivers":{
+                    "post":{
+                        "tags":["admin"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"viewDrivers",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/admin/view-pendings":{
+                    "post":{
+                        "tags":["admin"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"pendings",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/admin/driver-assign":{
+                    "post":{
+                        "tags":["admin"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"driverassign",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"driverID",
+                                    "description":"Enter Driver ID to Assign: ",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"bookingID",
+                                    "description":"In which booking??",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/driver/signup":{
+                    "post":{
+                        "tags":["driver"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"driverUp",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                            {
+                                "in":"formData",
+                                "name":"name",
+                                "description":"Enter Name",
+                                "required":true
+                            },
+                            {
+                                "in":"formData",
+                                "name":"email",
+                                "description":"Enter Email",
+                                "required":true
+                            },
+                                {
+                                    "in":"formData",
+                                    "name":"carNumber",
+                                    "description":"Enter Car Number:",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter password",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"confirmPassword",
+                                    "description":"Confirm Password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/driver/login":{
+                    "post":{
+                        "tags":["driver"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"driverLogin",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                },
+                "/driver/view-bookings":{
+                    "post":{
+                        "tags":["driver"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"driverView",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"token",
+                                    "description":"Enter token",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
+                }
+
+                }
+
+    }

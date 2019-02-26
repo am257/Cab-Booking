@@ -1,8 +1,9 @@
 const db = require('../database/dbConnection')
-const config=require('../Config/config')
 const constant=require('../constant/constants')
 const driverService=require('../services/driverServices')
 const mongo= require('../mongo/mongoLogs')
+
+//Driver log in function
 const loginSuccessFunction= (req,res)=>
 
 {
@@ -31,6 +32,7 @@ const loginSuccessFunction= (req,res)=>
         })
     })
 }
+//driver can see his own bookings
 const viewBookings=async(req,res)=>
 {
     try{

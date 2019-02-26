@@ -44,13 +44,14 @@ const passwordToHashFunction = function(req,res,next)
             if(err){
                 res.send(
                     {
+                        statusCode:400,
                         message:"Please confirm password"
                     }
                 );
              }
              else{
                  req.hash= hash;
-                 console.log(req.hash)
+                // console.log(req.hash)
                  next();
              }
         });
@@ -83,17 +84,28 @@ const generateTokenFunction=(req,res, next)=>
 
 const validateTokenFunction= async (req,res,next)=>
 {
-    let email = await service.getEmailByToken(req,res);
-    if(email=='')
-    {
+    try{
+        let email = await service.getEmailByToken(req,res);
+        if(email=='')
+        {
         res.send({
             ERROR: constant.warnings[2]
         })
+       }
+       else{
+          req.email= email;
+          next();
+         }
+        }
+      catch(err)
+     {
+            res.send({
+                statusCode:400,
+                message:"Please enter a valid token....."
+            })
     }
-    else{
-        req.email= email;
-        next();
-    }
+    
+    
 }
 
 module.exports.checkCredentialsFunction = checkCredentialsFunction

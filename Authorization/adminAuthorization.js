@@ -27,8 +27,9 @@ module.exports.generateHashFunction= (password)=>
 
 const hashToPasswordFunction= async (req,res, next)=>
 {   
-    let hash = await adminService.getHashValueFunction(req, res, req.body.email)
-    console.log(hash+"thosjsj")
+    try{
+        let hash = await adminService.getHashValueFunction(req, res, req.body.email)
+
     if(hash=='')
     {
         res.send(constant.warnings[0])
@@ -56,6 +57,18 @@ const hashToPasswordFunction= async (req,res, next)=>
             }
         })
     }
+    }
+    catch(err){
+        if(err=="DBerror")
+        {
+            res.send({
+                statusCode:400,
+                message:"Please Enter valid Admin Email..."
+            })
+        }
+
+    }
+    
    
 }
 

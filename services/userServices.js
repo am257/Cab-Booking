@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken')
 const mongo= require('../database/mongo')
 const constant=require('../constant/constants')
 let NOW=new Date()
+
+//user  Signup fuction
 module.exports.addSignupFunction =(req,res)=>
 {  
 
@@ -40,7 +42,8 @@ module.exports.checkEmailExistance=(req,res)=>{
         db.query("SELECT password FROM user WHERE user_email=?",req.body.email, function(err,val)
         {
             if(err)
-            {  
+            {    
+                console.log('hello')
                 reject(err.message);
             }
             else{
@@ -86,7 +89,8 @@ module.exports.getEmailByToken=(req,res)=>
         jwt.verify(req.body.token, config.privateKey,(err,value)=>
         {
             if(err)
-            {
+            {  
+               
                 reject('')
             }
             else{
@@ -118,7 +122,7 @@ module.exports.insertBookingDetails=(req,res)=>
                     {
                         console.log("insertion err")
 
-                        reject('')
+                        reject('error')
                     }
                     else{
                         resolve(status);

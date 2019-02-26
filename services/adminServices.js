@@ -72,7 +72,7 @@ module.exports.getHashValueFunction= (req,res,email)=>
         if(err)
         {   
             
-            reject(err)
+            reject("DBerror")
         }
         else{
             

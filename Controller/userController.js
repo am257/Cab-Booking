@@ -1,16 +1,12 @@
 const express = require('express')
 const app = express();
-const bodyParser = require ('body-parser');
-const bcrypt = require('bcrypt')
-const saltRounds =10;
-const db = require('../database/dbConnection')
-const config = require('../Config/config')
+let constant = require('../constant/constants')
 const userService = require('../services/userServices')
-
-
+//user can create booking using this function
 const createBookingFunction= async function(req,res){
-    let insert = await userService.insertBookingDetails(req,res);
-    let getBookingDetail= await userService.getBookingDetail(req,res);
+    try{
+        let insert = await userService.insertBookingDetails(req,res);           
+        let getBookingDetail= await userService.getBookingDetail(req,res);
     if(insert=='')
     {
         res.send({
@@ -32,8 +28,33 @@ const createBookingFunction= async function(req,res){
 
         })
     }
+    }
+    catch(err)
+    { 
+        console.log("     llll     "+err)
+        res.send({
+            statusCode:400,
+            messsage:"Please enter pickup point and Drop point correctly..."
+        })
+    }
+    
 }
 
+const putFareAmmount=async (req,res)=>{
+       const checkStatusOfBooking = await userService.checkStatusOfBookingFunction(req,res)
+       if(checkStatusOfBooking == '')
+       {
+           console.log(checkStatusOfBooking=='')
+       }
+       else{
+           
+       }
+    
+}
+
+
+
+//complete Booking when journet is finshed
 const completeBookingFunction=async (req,res)=>{
     let email = req.email;
     let getUserDetailsByEmail = await userService.getUserDetailsByEmailFunction(email);
@@ -55,7 +76,6 @@ const completeBookingFunction=async (req,res)=>{
         }
         else{
             let driverDetails= await userService.fetchDriverStatus(getUserDetailsByEmail.user_id);
-           // console.log(driverDetails.driver_id+"      "+driverDetails.car_number)
             if(driverDetails=='')
             {
                 res.send({
@@ -92,14 +112,16 @@ const completeBookingFunction=async (req,res)=>{
         
     }
 }
+
+//user can view bookings
 const viewBookingFunction=async (req,res)=>
 {     try{
     let email = req.email
-    console.log(email+"........")
+    //console.log(email+"........")
      let userID= await userService.getUserID(req,res,email);
-     console.log(userID)
+    // console.log(userID)
      let viewUserBookingData = await userService.getUserBookingDetails(userID)
-     console.log(viewUserBookingData.user_id);
+    // console.log(viewUserBookingData.user_id);
      res.send({
          statusCode:200,
          message:"Theses are the details of your booking=>",
@@ -118,6 +140,7 @@ const viewBookingFunction=async (req,res)=>
 }
 catch(err)
 {
+    console.log(err);
     res.send({
         statusCode:400,
         message:"No Booking details found for this user...."

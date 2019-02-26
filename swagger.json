@@ -14,7 +14,7 @@
                 "post":{
                     "tags":["users"],
                     "summary":"sign up user.",
-                    "description":"",
+                    "description":"This is user Sign Up function...",
                     "operationId":"getUsers",
                     "consumes":["application/json"],
                     "produces":["application/json"],

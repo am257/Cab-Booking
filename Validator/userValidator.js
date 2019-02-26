@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
-
+//validate all signup details of user
 const inputValidateFunction= function(req,res, next){
     const schema = {
         name: Joi.string().min(3).max(30).required(),
@@ -28,7 +28,7 @@ const inputValidateFunction= function(req,res, next){
         }
         else
         {   
-            console.log("Entered values are validated..."+val)
+            //console.log("Entered values are validated..."+val)
             next();
         }
     })

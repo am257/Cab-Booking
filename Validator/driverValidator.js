@@ -1,12 +1,12 @@
 
 const Joi = require('joi')
-
+//validate input details of driver signup details
 const inputValidationFunction=(req,res,next)=>
 {
    let schema = {
        name: Joi.string().required(),
        email: Joi.array().items(Joi.string().email().max(256).required()).single().required(),
-       carNumber: Joi.string().min(8).max(12).required(),
+       carNumber: Joi.string().min(8).max(20).required(),
        password: Joi.string().min(6).max(50).required(),
        confirmPassword : Joi.any().valid(Joi.ref('password'))
    }

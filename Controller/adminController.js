@@ -1,13 +1,13 @@
 const adminService = require('../services/adminServices')
-const db = require('../database/dbConnection')
-const config= require('../Config/config')
 const constant=require('../constant/constants')
-
 const mongofile= require('../mongo/mongoLogs')
-module.exports.adminLoginDetails=async (req,res)=>
+
+
+
+//Admin Login by check function
+module.exports.adminLoginDetails=async(req,res)=>
 {
     let getAdminDetals = await adminService.fetchAdminDetailsFunction(req.body.email)
-    console.log("....."+getAdminDetals)
     if('')
     {
         res.send({
@@ -30,10 +30,10 @@ module.exports.adminLoginDetails=async (req,res)=>
     }
 }
 
-
+//view free Drivers
 const viewDriversFunction=async (req,res)=>
 {
-    let viewDrivers= await adminService.fetchDriversByRatings()
+    let viewDrivers= await adminService.fetchDriversByRatings()   //fetch details by Driver Ratings
     if(viewDrivers==undefined)
     {
         res.send({
@@ -49,10 +49,12 @@ const viewDriversFunction=async (req,res)=>
     }
 }
 
+
+
+//To check user whoose requests are pending
 const viewUserDetailsFunction=async(req,res)=>
 {
     let pendingUsers = await adminService.fetchPendingUsersFunction()
-   // console.log("/////////"+pendingUsers);
     if(pendingUsers=='')
     {
         res.send({
@@ -70,6 +72,8 @@ const viewUserDetailsFunction=async(req,res)=>
 
 
 
+
+//assign driver to a perticular booking id
 const assignDriverFunction=async (req,res)=>
 {
     
@@ -78,7 +82,7 @@ const assignDriverFunction=async (req,res)=>
     {
         res.send({
             statusCode:400,
-            message: "Sorry.....Driver choosen by you is busy or not availabe...try another"
+            message: "Sorry !! Driver choosen by you is busy or not availabe...try another driver ID"
         })
     }
     else{   

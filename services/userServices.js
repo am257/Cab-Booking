@@ -43,7 +43,6 @@ module.exports.checkEmailExistance=(req,res)=>{
         {
             if(err)
             {    
-                console.log('hello')
                 reject(err.message);
             }
             else{
@@ -60,7 +59,6 @@ module.exports.fetchLoginDetails=(req, res)=>{
     {
         if(err)
         { 
-            console.log(err)
              res.send({
                error: constant.errorCode[1]
         })
@@ -94,18 +92,16 @@ module.exports.getEmailByToken=(req,res)=>
                 reject('')
             }
             else{
-               console.log(value.email)
                 resolve(value.email)
             }
         })
     })
 }
 
-module.exports.insertBookingDetails=(req,res)=>
+module.exports.insertBookingDetails=(req,res,source , destination, distance)=>
 {
     return new Promise(function(resolve,reject)
     {  
-        console.log(req.email+"25252525")
         db.query("SELECT user_id FROM user WHERE user_email=?",req.email,function(err,data)
         {
             if(err)
@@ -116,12 +112,11 @@ module.exports.insertBookingDetails=(req,res)=>
             }
             else{
                 req.userID=data[0].user_id;
-                db.query("INSERT INTO booking(user_id,source, destination) VALUES (?,?,?)",[data[0].user_id, req.body.source, req.body.destination],(err,status)=>
+                db.query("INSERT INTO booking(user_id,source, destination, distance) VALUES (?,?,?,?)",[data[0].user_id, source, destination, distance],(err,status)=>
                 {
                     if(err)
                     {
-                        console.log("insertion err")
-
+                        console.log("hello")
                         reject('error')
                     }
                     else{
@@ -132,16 +127,18 @@ module.exports.insertBookingDetails=(req,res)=>
         })
     })
 }
+
+
+
 module.exports.getBookingDetail=(req,res)=>{
     return new Promise(function(resolve,reject)
     {    
-        console.log(req.userID);
-        db.query("SELECT booking_id, user_id, source, destination,booking_created_at FROM booking WHERE user_id=?",req.userID,function(err,val)
+        db.query("SELECT booking_id, user_id, source, destination,distance,booking_created_at FROM booking WHERE user_id=?",req.userID,function(err,val)
         {
             if(err)
             {   
+               // console.log('hello')
 
-                //console.log("thisssssss    jsjj")
                 reject(err)
             }
             else{
@@ -203,7 +200,7 @@ module.exports.fetchDriverStatus=(userData)=>
                     reject('')
                 }
                 else{
-                   // console.log("789456123")
+    
                     resolve(driverID[0])
                 }
                 
@@ -262,8 +259,7 @@ module.exports.getUserBookingDetails=(userID)=>
             reject('fail')
         }
         else{
-            console.log(detail)
-            resolve(detail[0])
+              resolve(detail[0])
         }
     })
     })

@@ -40,7 +40,7 @@ const viewBookings=async(req,res)=>
         let DriverId= await driverService.getDriverId(req,res,req.email);
         let dID=DriverId.driver_id
         let checkFromMongo= await mongo.printBookingsOfDriver(req,res,dID)
-        //console.log(checkFromMongo)
+
         res.send({
             statusCode:200,
             message: "The details of the driver is below=>",

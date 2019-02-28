@@ -54,15 +54,16 @@ module.exports.insertDriverValues =(req, res)=>
 module.exports.getHash=(req,res)=>
 {return new Promise(function(resolve ,reject)
     {   
-        console.log(req.body.email)
+       
         db.query("SELECT password FROM driver WHERE driver_email=?", req.body.email,function(err,hash)
         {
        if(err)
        {
            reject('err')
        }
-       else{   
-                resolve(hash[0].password);
+       else{    
+          
+                resolve(hash[0]);
        }
    })
     })
@@ -80,7 +81,7 @@ module.exports.getDriverId=(req, res , email)=>
                 reject('')
             }
             else{
-                console.log(id[0].driver_id)
+            
                 resolve(id[0])
             }
         })

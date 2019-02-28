@@ -9,18 +9,17 @@ const constant=require('../constant/constants')
 
 module.exports.checkDatabaseEmpty=()=>
 {
-   // console.log("gejruerj")
+
     return new Promise( function(resolve, reject){
         db.query("SELECT admin_id FROM admin", function(err,val)
         {
             if(err)
             { 
-                //console.log(err);
+
                 reject(err)
             }
             else
             {    
-               // console.log(val)
                 resolve(val)
             }
         })
@@ -37,7 +36,6 @@ function insertAdminFunction(adminName,adminMail,password)
         if(err)
         {   
 
-            console.log(err)
             reject(err)
         }
         else{
@@ -55,7 +53,7 @@ module.exports.insertIntoDatabase=()=>
         let hashForAdmin1 = yield adminAuthorization.generateHashFunction(config.adminPassword[0])
         let hashForAdmin2 = yield adminAuthorization.generateHashFunction(config.adminPassword[1])
         let insertAdmin1   = yield insertAdminFunction("AKASH DEEP","akash@gmail.com",hashForAdmin1);
-        let insertAdmin2   = yield insertAdminFunction("BHAGAT SIR","bhagat@gmail.com",hashForAdmin2);
+        let insertAdmin2   = yield insertAdminFunction("BHARAT BAGGA","bharat@gmail.com",hashForAdmin2);
         resolve('Successfully Completed......')
         })().catch((err)=>{
             reject('ERROR')
@@ -94,14 +92,13 @@ module.exports.getHashValueFunction= (req,res,email)=>
 module.exports.fetchAdminDetailsFunction=(email)=>
 {
     return new Promise((resolve, reject)=>{
-        console.log(email+".....")
+
         db.query("SELECT admin_id,admin_name,created_at FROM admin WHERE email=?",email,function(err,val){
             if(err)
             {      
                    reject('')
             }
             else{
-                console.log("uuuuu"+val);
                 resolve(val)
             }
         })
@@ -130,7 +127,6 @@ module.exports.fetchPendingUsersFunction=()=>
     {
         db.query("SELECT user_id, booking_id,source, destination FROM booking WHERE booking_status =? order by booking_created_at",['pending'],(err,details)=>
         {
-            //console.log(val)
             if(err)
             {
                 reject('')
@@ -148,14 +144,12 @@ module.exports.fetchPendingUsersFunction=()=>
 module.exports.getAvailableDriver=(req,res)=>
 {   
       return new Promise((resolve,reject)=>{
-         // console.log(req.body.driverID)
        db.query("SELECT driver_id, car_number FROM driver WHERE status=? AND driver_id=? LIMIT 1", ['free',req.body.driverID],(err,data)=>{
            if(err)
            {
                reject('')
            }
            else{ 
-             //  console.log("2222222"+data[0])
                resolve(data[0])
            }
        })
@@ -165,8 +159,7 @@ module.exports.getAvailableDriver=(req,res)=>
 module.exports.assignDriver=(req,res,driverDetails)=>{
     return new Promise((resolve, reject)=>
     {   
-        console.log(driverDetails.car_number)
-        console.log(driverDetails.driver_id)
+   
         db.query("UPDATE booking SET driver_id=?, car_number =?, booking_status=? WHERE booking_status=? AND booking_id= ?",[driverDetails.driver_id, driverDetails.car_number,'assigned','pending', req.body.bookingID], function(err,val)
         {
             if(err)
@@ -174,7 +167,6 @@ module.exports.assignDriver=(req,res,driverDetails)=>{
                 reject('')
             }
             else{
-                //console.log(val)
                 resolve('success')
             }
         })
@@ -207,7 +199,6 @@ module.exports.insertIntoMongoFunction=(req,res)=>
                 reject('')
             }
             else{ 
-              console.log("zmmzmzmz"+data[0])
                 resolve(data[0])
             }
         })

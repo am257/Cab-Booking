@@ -18,7 +18,7 @@ const passwordToHash=(req,res , next)=>
                 );
              }
              else{
-                 console.log(hash)
+                 
                  req.hash = hash;
                  next();
              }
@@ -27,18 +27,27 @@ const passwordToHash=(req,res , next)=>
 }
 
 const  checkCredentialFunction= async (req, res, next)=>{
-         let hash = await driverService.getHash(req,res);
-         console.log(hash);
-         req.hash = hash;
-         if(hash==='err')
-         {
-             res.send({
-                 Warning: constant.warnings[0] 
-             })
-         }
-         else{
-             next();
-         }
+    try{
+        let hash = await driverService.getHash(req,res);
+    
+        req.hash = hash.password;
+        if(hash.password===undefined)
+        {
+            res.send({
+                Warning: constant.warnings[0] 
+            })
+        }
+        else{
+            next();
+        }
+    }
+    catch(err)
+    {
+        res.send({
+            Warning:constant.warnings[0]
+        })
+    }
+        
 }
 
 
@@ -58,7 +67,10 @@ const hashToPassword= (req, res, next)=>
                 next()
             }
             else{
-                constant.warnings[1];
+                res.send({
+                    Warning: constant.warnings[1]
+                })
+               
             }
         }
     } )
@@ -75,7 +87,6 @@ const generateToken= (req, res, next)=>
         }
         else {
             req.token = token;
-            console.log(token+"{{{{{{{{{{}}}}}}}")
             next();
         }
     });
@@ -88,11 +99,12 @@ const getEmailByToken=(req,res)=>
         jwt.verify(req.body.token, config.privateKey,(err,data)=>
         {
             if(err)
-            {
+            {  
+                
                 reject('')
             }
             else{
-                console.log(data.email)
+               
                 resolve(data.email)
             }
         })
@@ -102,8 +114,9 @@ const getEmailByToken=(req,res)=>
 
 
 const validateTokenFunction= async (req,res,next)=>
-{
-    let email = await getEmailByToken(req,res);
+{   
+    try{
+        let email = await getEmailByToken(req,res);
     if(email=='')
     {
         res.send({
@@ -114,6 +127,15 @@ const validateTokenFunction= async (req,res,next)=>
         req.email= email;
         next();
     }
+
+    }
+    catch(err)
+    {
+        res.send({
+            Warning: constant.warnings[2]
+        })
+    }
+    
 }
 
 

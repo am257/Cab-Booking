@@ -7,7 +7,8 @@ const mongofile= require('../mongo/mongoLogs')
 //Admin Login by check function
 module.exports.adminLoginDetails=async(req,res)=>
 {
-    let getAdminDetals = await adminService.fetchAdminDetailsFunction(req.body.email)
+    try{
+        let getAdminDetals = await adminService.fetchAdminDetailsFunction(req.body.email)
     if('')
     {
         res.send({
@@ -28,6 +29,15 @@ module.exports.adminLoginDetails=async(req,res)=>
         )
         
     }
+    }
+    catch(err)
+    {
+        res.send({
+            statusCode:400,
+            message:"Error in admin log in details" 
+        })
+    }
+    
 }
 
 //view free Drivers
@@ -54,7 +64,8 @@ const viewDriversFunction=async (req,res)=>
 //To check user whoose requests are pending
 const viewUserDetailsFunction=async(req,res)=>
 {
-    let pendingUsers = await adminService.fetchPendingUsersFunction()
+    try{
+        let pendingUsers = await adminService.fetchPendingUsersFunction()   //fetch function to get pending users
     if(pendingUsers=='')
     {
         res.send({
@@ -68,6 +79,15 @@ const viewUserDetailsFunction=async(req,res)=>
             Pending_request: pendingUsers
         })
     }
+    }
+    catch(err)
+    {
+        res.send({
+            statusCode:400,
+            message: "Error in fetching user details.."
+        })
+    }
+    
 }
 
 
@@ -76,8 +96,10 @@ const viewUserDetailsFunction=async(req,res)=>
 //assign driver to a perticular booking id
 const assignDriverFunction=async (req,res)=>
 {
+    try{
+
     
-    let availableDriver= await adminService.getAvailableDriver(req,res);
+    let availableDriver= await adminService.getAvailableDriver(req,res);  //check driver status free or busy
     if(availableDriver==undefined)
     {
         res.send({
@@ -86,10 +108,10 @@ const assignDriverFunction=async (req,res)=>
         })
     }
     else{   
-        let insertDriver = await adminService.assignDriver(req,res,availableDriver);
+        let insertDriver = await adminService.assignDriver(req,res,availableDriver); //assign the driver into a pertucular booking
         if(insertDriver =='success')
         {
-            let updateDriverStatus= await adminService.updateDriverStatusFunction(req,res)
+            let updateDriverStatus= await adminService.updateDriverStatusFunction(req,res)  //Update driver status to busy as it qould be assigned to a booking
             if(updateDriverStatus == 'error')
             {
                 res.send({
@@ -128,6 +150,14 @@ const assignDriverFunction=async (req,res)=>
     }
     
 
+}
+catch(err)
+{
+    res.send({
+        statusCode:400,
+        message: "The credential given by you is not correct...."
+    })
+}
 }
 
 module.exports.viewDriversFunction =viewDriversFunction;

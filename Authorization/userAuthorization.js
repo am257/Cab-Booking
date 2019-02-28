@@ -51,7 +51,7 @@ const passwordToHashFunction = function(req,res,next)
              }
              else{
                  req.hash= hash;
-                // console.log(req.hash)
+            
                  next();
              }
         });

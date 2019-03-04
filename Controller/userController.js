@@ -83,7 +83,7 @@ const createBookingFunction= async function(req,res){
         })
     }
     else{
-       // let fare = floor((Math.random() * (300 - 80)) + 80);
+     let fare = Math.floor((Math.random() * (300 - 80)) + 80);
         res.send({
             statusCode:200,
             message:" Your booking creation is successfully Completed....",
@@ -93,6 +93,7 @@ const createBookingFunction= async function(req,res){
                 "Pick up Point ":getBookingDetail[0].source,
                 "Drop Point ":   getBookingDetail[0].destination,
                 "Distance":     getBookingDetail[0].distance,
+                "Expected Fare ": fare,
                 "message": "please wait till driver assign....."
             }
 
@@ -101,7 +102,7 @@ const createBookingFunction= async function(req,res){
     }
     catch(err)
     { 
-        
+        console.log(err)
             res.send({
                 statusCode:400,
                 messsage:"Please enter pickup point and Drop point correctly..."
@@ -130,33 +131,11 @@ const completeBookingFunction=async (req,res)=>{
     else{
         //update booking table into completed status
         let updateBookingTable    = await userService.setBookingTable(getUserDetailsByEmail.user_id);
-        if(updateBookingTable=='')
-        {
-            res.send({
-                statusCode:404,
-                "message": "No booking is assigned to you right Now"
-            })
-        }
-        else{
+       
             //fetch driver details to change their status 
             let driverDetails= await userService.fetchDriverStatus(getUserDetailsByEmail.user_id);
-            if(driverDetails=='')
-            {
-                res.send({
-                    Error: constant.errorCode[3]
-                })
-            }
-            else{
                 //set staus of driver as busy again
                 let setStatusOfDriver =  await userService.setStatusOfDriverFunction(driverDetails)
-                if(setStatusOfDriver=='')
-                {
-                    res.send({
-                        Error: constant.errorCode[2],
-                        message: "Driver status Updation Failed.."
-                    })
-                }
-                else{
                     //add driver ratings by the user
                     let putRatings = await userService.addRatingsOnDriver(req,res,driverDetails.driver_id)
                     res.send({
@@ -171,9 +150,6 @@ const completeBookingFunction=async (req,res)=>{
                             "BOOKING_ID": driverDetails.booking_id
                         }
                     })
-                }
-            }
-        }
         
     }
  }

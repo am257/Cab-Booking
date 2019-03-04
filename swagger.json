@@ -16,8 +16,8 @@
                     "summary":"sign up user.",
                     "description":"This is user Sign Up function...",
                     "operationId":"getUsers",
-                    "consumes":["application/json"],
-                    "produces":["application/json"],
+                    "consumes":"application/json",
+                    "produces":"application/json",
                     "parameters":[
                                 {
                                 "in":"formData",

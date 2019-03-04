@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const Promise = require('bluebird')
 
-app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 
 const adminService = require('./services/adminServices')

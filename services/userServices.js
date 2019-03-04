@@ -133,12 +133,10 @@ module.exports.insertBookingDetails=(req,res,source , destination, distance)=>
 module.exports.getBookingDetail=(req,res)=>{
     return new Promise(function(resolve,reject)
     {    
-        db.query("SELECT booking_id, user_id, source, destination,distance,booking_created_at FROM booking WHERE user_id=?",req.userID,function(err,val)
+        db.query("SELECT booking_id, user_id, source, destination,distance,booking_created_at FROM booking WHERE user_id=? ORDER BY booking_created_at DESC",req.userID,function(err,val)
         {
             if(err)
             {   
-               // console.log('hello')
-
                 reject(err)
             }
             else{
@@ -192,7 +190,7 @@ module.exports.setBookingTable=(user)=>{
 module.exports.fetchDriverStatus=(userData)=>
 {
     return new Promise((resolve , reject)=>{
-        db.query("SELECT driver_id,car_number,booking_id from booking WHERE user_id =?", userData, (err, driverID)=>
+        db.query("SELECT driver_id,car_number,booking_id from booking WHERE user_id =? ORDER BY booking_created_at DESC", userData, (err, driverID)=>
         {
             if(err)
         

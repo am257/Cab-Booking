@@ -66,7 +66,8 @@ const viewUserDetailsFunction=async(req,res)=>
 {
     try{
         let pendingUsers = await adminService.fetchPendingUsersFunction()   //fetch function to get pending users
-    if(pendingUsers=='')
+   console.log(pendingUsers.length)
+        if(pendingUsers.length==0)
     {
         res.send({
             Error: constant.errorCode[2],

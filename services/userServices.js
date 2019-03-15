@@ -198,7 +198,6 @@ module.exports.fetchDriverStatus=(userData)=>
                     reject('')
                 }
                 else{
-    
                     resolve(driverID[0])
                 }
                 
@@ -282,3 +281,65 @@ module.exports.addRatingsOnDriver=(req,res,driverID)=>
         })
     })
 }
+
+
+
+
+module.exports.checkUserStatus=(userID)=>
+{
+    return new Promise((resolve,reject)=>
+    {
+        db.query("SELECT booking_status FROM booking WHERE user_id = ? ORDER BY booking_created_at DESC LIMIT 1", userID,(err,val)=>
+        {
+            if(err)
+            {
+                reject(err)
+            }
+            else{
+                resolve(val[0]);
+            }
+        })
+    })
+}
+
+
+
+
+module.exports.getHashValueOfTheEmail=(sql , params)=>
+{
+    return new Promise((resolve, reject)=>
+    {
+        db.query(sql,params, (err, data)=>
+        {
+            if(err)
+            {
+                reject(err);
+            }
+            else
+            {
+                resolve(data[0].password)
+            }
+        })
+    }
+    )}
+
+/*
+
+module.exports.checkUsersRequestStatus=(userID)=>
+{
+    return new Promise((resolve,reject)=>
+{
+    db.query("SELECT booking_id from booking where user_id=? and booking_status != ?",[userID, 'completed'],(err,data)=>{
+   if(err)
+   {
+       console.log(err.message)
+       reject(err)
+   }
+   else
+   {
+       resolve(data[0])
+   }
+    })
+})
+}
+*/

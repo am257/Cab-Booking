@@ -100,8 +100,7 @@ const validateTokenFunction= async (req,res,next)=>
       catch(err)
      {
             res.send({
-                statusCode:400,
-                message:"Please enter a valid token....."
+               Warning: constant.warnings[2]
             })
     }
     

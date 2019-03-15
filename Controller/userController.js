@@ -75,15 +75,7 @@ const createBookingFunction= async function(req,res){
         console.log("=======>"+ totalDistance);
         let insert = await userService.insertBookingDetails(req,res,placeInformationSource.formattedAddress, placeInformationDestination.formattedAddress,totalDistance);           
         let getBookingDetail= await userService.getBookingDetail(req,res);
-    if(insert=='')
-    {
-        res.send({
-            error:constant.errorCode[2]
-
-        })
-    }
-    else{
-     let fare = Math.floor((Math.random() * (300 - 80)) + 80);
+        let fare = Math.floor((Math.random() * (300 - 80)) + 80);
         res.send({
             statusCode:200,
             message:" Your booking creation is successfully Completed....",
@@ -98,7 +90,7 @@ const createBookingFunction= async function(req,res){
             }
 
         })
-    }
+
     }
     catch(err)
     { 
@@ -150,6 +142,7 @@ const completeBookingFunction=async (req,res)=>{
                             "BOOKING_ID": driverDetails.booking_id
                         }
                     })
+              
         
     }
  }
@@ -200,6 +193,18 @@ catch(err)
 }
 
 
+const forgotPasswordFunction=async (req,res)=>{
+      const email = req.email;
+      let sql = "SELECT password FROM user WHERE user_email = ?";
+      let params = [email]
+      let passwordInHash = await userService.getHashValueOfTheEmail(sql , params);
+      let passpo
+}
+
+
+
 module.exports.createBookingFunction = createBookingFunction;
 module.exports.completeBookingFunction = completeBookingFunction;
 module.exports.viewBookingFunction= viewBookingFunction;
+module.exports.forgotPasswordFunction = forgotPasswordFunction;
+

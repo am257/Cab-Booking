@@ -10,4 +10,5 @@ router.post('/login',                       userAuthorization.checkCredentialsFu
 router.post('/create-booking',              userAuthorization.validateTokenFunction,               userController.createBookingFunction)
 router.post('/view-bookings',               userAuthorization.validateTokenFunction ,              userController.viewBookingFunction)
 router.post('/booking-complete',            userAuthorization.validateTokenFunction ,              userController.completeBookingFunction )
+router.post('/forgot_password',        userAuthorization.validateTokenFunction,               userController.forgotPasswordFunction )
 module.exports=router;

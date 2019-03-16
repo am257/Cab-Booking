@@ -161,6 +161,76 @@ catch(err)
 }
 }
 
+
+
+const deleteUserFunction=async (req,res)=>{
+    try{
+        let user_id = req.body.user_id;
+        let sql = "DELETE FROM user WHERE user_id = ?"
+        let param=[user_id]
+        let deletion = await adminService.deleteUserQuery(sql,param);
+        res.send({
+            statusCode: 400,
+            message: "The user has been successfully Deleted",
+            data:
+            {
+                USER_ID : user_id,
+                DELETED: "YES"
+            }
+        })
+    }
+    catch(err)
+    {
+        res.send({
+            statusCode: 400,
+            message: "The user deletion is failed",
+            data:
+            {
+                USEr_ID : user_id,
+                DELETED: "NO"
+            }
+        })
+    }
+    
+}
+
+
+const removeDriverFunction =async (req,res)=>
+{
+    try{
+        let driver_id = req.body.driver_id;
+        let sql = "DELETE FROM driver WHERE driver_id = ?";
+        let param = [driver_id]
+        let deletion = await adminService.removeDriverFunction(sql, param);
+        res.send({
+            statusCode:200,
+            message: "Deleted Driver ID",
+            data:{
+                 Driver_ID: driver_id,
+                "Deleted":"YES"
+            }
+        })
+
+    }
+    catch(err)
+    {
+        res.send({
+            statusCode:400,
+            message: "Deletion Failed",
+            data:
+            {
+                DRIVER_ID: driver_id,
+                DELETED : "NO"
+            }
+        })
+
+    }
+
+}
+
+
 module.exports.viewDriversFunction =viewDriversFunction;
 module.exports.viewUserDetailsFunction = viewUserDetailsFunction;
 module.exports.assignDriverFunction= assignDriverFunction;
+module.exports.deleteUserFunction = deleteUserFunction;
+module.exports.removeDriverFunction = removeDriverFunction;

@@ -379,6 +379,39 @@
                             },
                         "security":{}
                         }
+                },
+                "/admin/delete_user":{
+                    "post":{
+                        "tags":["admin"],
+                        "summary":"Login to users.","description":"",
+                        "operationId":"deleteuser",
+                        "consumes":"application/json",
+                        "produces":"application/json",
+                        "parameters":[
+                                {
+                                    "in":"formData",
+                                    "name":"email",
+                                    "description":"Enter Email",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"password",
+                                    "description":"Enter Password",
+                                    "required":true
+                                },
+                                {
+                                    "in":"formData",
+                                    "name":"user_id",
+                                    "description":"Enter User ID to Assign: ",
+                                    "required":true
+                                }
+                            ],
+                        "responses":{
+                            "200":{"description":"success"}
+                            },
+                        "security":{}
+                        }
                 }
 
                 }

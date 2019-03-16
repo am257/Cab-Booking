@@ -206,3 +206,34 @@ module.exports.insertIntoMongoFunction=(req,res)=>
 }
 
 
+module.exports.deleteUserQuery=(sql ,param)=>
+{
+    return new Promise((resolve,reject)=>
+    {
+        db.query(sql, param,(err,data)=>
+        {
+            if(err)
+            {
+                reject(err)
+            }
+            else
+            {
+                resolve(data[0])
+            }
+        })
+    })
+}
+    module.exports.removeDriverFunction =(sql,param)=>
+    {
+        return new Promise((resolve, reject)=>{
+            db.query(sql, param, (err,data)=>{
+                if(err)
+                {
+                    reject(err)
+                }
+                else{
+                    resolve(data[0])
+                }
+            })
+        })
+    }

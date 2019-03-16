@@ -6,13 +6,10 @@ const constant=require('../constant/constants')
 
 module.exports.insertDriverValues =(req, res)=>
 {  
-    console.log(req.body)
-    console.log(req.hash)
     db.query("INSERT INTO driver(driver_name, driver_email, car_number ,password) VALUES (?,?,?,?)",[req.body.name,req.body.email,req.body.carNumber, req.hash],(err,detail)=>
     {
         if(err)
         {   
-            console.log(err)
             res.send({
                error: constant.errorCode[2],
                message:err.message
@@ -23,11 +20,9 @@ module.exports.insertDriverValues =(req, res)=>
             db.query("SELECT driver_id,driver_name,driver_email, car_number FROM driver WHERE driver_email=?",req.body.email,function(err,data){
             if(err)
             {
-              //  console.log('253525')
               res.send({
                error: constant.errorCode[2]
-              })
-                
+              })    
             }
             else{
                 

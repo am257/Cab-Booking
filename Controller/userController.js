@@ -4,12 +4,12 @@ let constant = require('../constant/constants')
 const userService = require('../services/userServices')
 var NodeGeocoder = require('node-geocoder');
 let distance = require('google-distance')
-distance.apiKey='AIzaSyC7A0EVetIX5j4PEobIlo3KF1MGDHdsKzE'
+distance.apiKey='AIzaSyBpmQCkiOsiOpZ5F_sIvVzJhdH6gNAsCGQ'
 
 let options = {
   provider: 'google',
   httpAdapter: 'https', 
-  apiKey: 'AIzaSyC7A0EVetIX5j4PEobIlo3KF1MGDHdsKzE', 
+  apiKey: 'AIzaSyBpmQCkiOsiOpZ5F_sIvVzJhdH6gNAsCGQ', 
   formatter: null      
 };
 let geocoder = NodeGeocoder(options);
